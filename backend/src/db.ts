@@ -17,9 +17,7 @@ const userSchema = new Schema<IUser>({
 
 const connectdb = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://gautamsanghrakshit:9pgqhb0ZCuGDFGnG@cluster0.epbc3ke.mongodb.net/MT-app"
-    );
+    await mongoose.connect(process.env.mongo_url);
     console.log("mongodb Connected");
   } catch (e) {
     console.error("Error connecting to MongoDB:", e);
