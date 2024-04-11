@@ -1,33 +1,27 @@
 import mongoose from "mongoose";
-import * as dotenv from "dotenv"
-dotenv.config()
-const { Schema, model } = mongoose;
+const { Schema } = mongoose;
 
-interface IUser {
-  userName: string;
-  email: string;
-  password: string;
-}
+const UserSchema = new Schema({
+    Username: {
+        type: String,
+        required: true,
+        min: 3
+    },
+    firstName: {
+        type: String,
+        required: true,
+        min: 3
+    },
+    lastName: {
+        type: String,
+        required: true,
+        min: 3
+    },
+    password: {
+        type: String,
+        required: true,
+        min: 6
+    }
+})
+export const UserModel = mongoose.model('User', UserSchema)
 
-const userSchema = new Schema<IUser>({
-  userName: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, minlength: 8 },
-});
-
-const connectdb = async () => {
-  const mongo_url=process.env.URI as string;
-  try {
-    await mongoose.connect(mongo_url);
-    console.log("mongodb Connected");
-  } catch (e) {
-    console.error("Error connecting to MongoDB:", e);
-    return;
-  }
-};
-
-const user = model("user", userSchema);
-
-connectdb().then(() => {
-  module.exports = user;
-});
