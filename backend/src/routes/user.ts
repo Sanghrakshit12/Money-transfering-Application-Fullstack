@@ -1,49 +1,84 @@
 import express from 'express'
-const app = express()
-import { userSchema } from '../zod'
+import { signupuserSchema, signinuserSchema } from '../zod'
 import { UserModel } from '../db'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 export const userRouter = express.Router()
+userRouter.use(express.json())
 
-if (!process.env.Mongo_URL) {
+const JWT_Secret = "MoneyTransferX-2024"
+const Mongo_URL = "mongodb+srv://gautamsanghrakshit:9pgqhb0ZCuGDFGnG@cluster0.epbc3ke.mongodb.net/MoneyTranferX"
+
+if (!Mongo_URL) {
     throw new Error("Cannot connect to database: URL not defined");
 }
 
-mongoose.connect(process.env.Mongo_URL).then(() => {
+mongoose.connect(Mongo_URL).then(() => {
     console.log("Database Connected Successfully")
 }
 ).catch((e) => {
     console.log("Error Connecting To Database", e)
 })
 
-app.post('/signup', async (req, res) => {
+userRouter.get('/test', (req, res) => {
+    res.json({ msg: "hello From User" })
+})
+
+userRouter.post('/signup', async (req, res) => {
     try {
-        const { UserName, firstName, lastName, password } = req.body
-        userSchema.safeParse({ UserName, firstName, lastName, password })
+        const userName = req.body.userName
+        const firstName = req.body.firstName
+        const lastName = req.body.lastName
+        const password = req.body.password
+
+        const check = await signupuserSchema.safeParse({ userName, firstName, lastName, password })
+        if (!check.success)
+            res.status(404).json({ error: check.error.errors })
 
         const existingUser = await UserModel.findOne({
-            Username: req.body.UserName
+            userName: req.body.userName
         })
         if (existingUser) {
             res.json({ message: "Email already taken / Incorrect inputs" })
         }
         const user = await UserModel.create({
-            UserName, firstName, lastName, password
+            userName, firstName, lastName, password
         })
         const userId = user._id;
-        if (!process.env.JWT_Secret) {
-            throw new Error("JWT secret is not defined in the environment variables");
-        }
-        const token = jwt.sign(userId, process.env.JWT_Secret)
+
+        const token = await jwt.sign({ userId }, JWT_Secret)
         res.json({ message: "User Created Successfully", token: token })
+        console.log(`SignUp Successful ${firstName}`)
     }
     catch (e) {
         console.error("Error in Signup")
         throw (e)
     }
 })
+
+userRouter.post('/signin', async (req, res) => {
+    try {
+        const { userName, password } = req.body
+        const check = signinuserSchema.safeParse({ userName, password })
+
+        if (!check.success)
+            res.status(404).json({ error: check.error.errors })
+
+        const existingUser = await UserModel.findOne({ userName, password })
+        if (!existingUser) {
+            res.status(404).json({ message: "No User With Given Credentials Found" })
+            return
+        }
+        const userId = existingUser._id
+        const token = jwt.sign({ userId }, JWT_Secret)
+        res.status(200).json({ token: token })
+        console.log(`SignIn Successful ${existingUser.firstName}`)
+    }
+    catch (e) {
+        console.error("Error in Signin")
+        throw (e)
+    }
+
+})
+

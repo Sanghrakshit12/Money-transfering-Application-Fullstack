@@ -1,8 +1,10 @@
 import express from 'express'
-export const router = express.Router()
-import { userRouter } from './user'
-
+import {userRouter} from './user'
 
 export const mainRouter = express.Router()
 
-router.use('/user', userRouter)
+mainRouter.get('/',(req,res)=>{
+    res.json({msg:"hello From routes2"})
+})
+
+mainRouter.use('/user', userRouter)
