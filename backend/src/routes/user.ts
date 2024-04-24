@@ -1,8 +1,10 @@
 import express from 'express'
-import { signupuserSchema, signinuserSchema } from '../zod'
+import { signupuserSchema, signinuserSchema, updateBody } from '../zod'
 import { UserModel } from '../db'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
+import AuthMiddleware from '../middleware'
+import { AuthenticatedRequest } from '../middleware'
 
 export const userRouter = express.Router()
 userRouter.use(express.json())
@@ -79,6 +81,25 @@ userRouter.post('/signin', async (req, res) => {
         console.error("Error in Signin")
         throw (e)
     }
+})
+
+userRouter.put('/update', AuthMiddleware, async (req: AuthenticatedRequest, res) => {
+    try {
+        const { password, firstName, lastName } = req.body
+        const check = updateBody.safeParse({ password, firstName, lastName })
+        if (!check.success)
+            res.status(404).json({ error: check.error.errors })
+        await UserModel.updateOne({ _id: req.userId }, req.body)
+        res.status(200).json({ message: "Update Successful" })
+        console.log("Update Successful")
+    }
+    catch (err) {
+        res.status(404).json({ message: "Update Failed" })
+        return
+    }
+})
+
+userRouter.get('/bulk', async (req, res) => {
 
 })
 
