@@ -1,6 +1,6 @@
 import express from 'express'
 import { signupuserSchema, signinuserSchema, updateBody } from '../zod'
-import { UserModel } from '../db'
+import { AccountModel, UserModel } from '../db'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import AuthMiddleware from '../middleware'
@@ -55,6 +55,11 @@ userRouter.post('/signup', async (req, res) => {
         const userId = user._id;
 
         const token = await jwt.sign({ userId }, JWT_Secret)
+        const balance = Math.floor(1 + Math.random() * 10000)
+        await AccountModel.create({
+            userId,
+            balance
+        })
         res.json({ message: "User Created Successfully", token: token })
         console.log(`SignUp Successful ${firstName}`)
     }
