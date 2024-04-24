@@ -5,17 +5,22 @@ import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import AuthMiddleware from '../middleware'
 import { AuthenticatedRequest } from '../middleware'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const userRouter = express.Router()
 userRouter.use(express.json())
 
-const JWT_Secret = "MoneyTransferX-2024"
-const Mongo_URL = "mongodb+srv://gautamsanghrakshit:9pgqhb0ZCuGDFGnG@cluster0.epbc3ke.mongodb.net/MoneyTranferX"
+const Mongo_URL = process.env.Mongo_URL
+const JWT_Secret = process.env.JWT_Secret
 
 if (!Mongo_URL) {
     throw new Error("Cannot connect to database: URL not defined");
 }
-
+if (!JWT_Secret) {
+    throw new Error("JWT_Secret Not Set in env file");
+}
 mongoose.connect(Mongo_URL).then(() => {
     console.log("Database Connected Successfully")
 }
@@ -99,7 +104,31 @@ userRouter.put('/update', AuthMiddleware, async (req: AuthenticatedRequest, res)
     }
 })
 
-userRouter.get('/bulk', async (req, res) => {
+interface QueryedUser {
+    userName: string;
+    firstName: string;
+    lastName: string;
+    _id: mongoose.Types.ObjectId;
+}
 
+userRouter.get('/bulk', async (req, res) => {
+    const filter: string = req.query.filter?.toString() || "";
+    const users = await UserModel.find({
+        $or: [
+            { firstName: { $regex: filter, $options: 'i' } },
+            { lastName: { $regex: filter, $options: 'i' } }
+        ]
+    }).exec();
+
+    const queriedUser: QueryedUser[] = users.map(user => ({
+        userName: user.userName,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        _id: user._id
+    }));
+    res.status(200).json({
+        user: queriedUser
+    })
+    console.log(queriedUser)
 })
 
