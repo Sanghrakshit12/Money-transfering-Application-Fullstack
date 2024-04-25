@@ -15,10 +15,6 @@ export default function SignupPage() {
 
   const { toast } = useToast();
   const handleSubmit = () => {
-    console.log(userName);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(password);
     try {
       axios.post("http://localhost:3000/api/v1/user/signup", {
         userName,
