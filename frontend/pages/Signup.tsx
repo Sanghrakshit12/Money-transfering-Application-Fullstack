@@ -1,11 +1,10 @@
 import AuthHeading from "../components/AuthHeading";
 import SubHeading from "../components/AuthsubHeading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import InputBox from "../components/inputbox";
 import { useState } from "react";
 import axios from "axios";
-import { useToast } from "@/components/ui/use-toast";
 
 export default function SignupPage() {
   const [userName, setUserName] = useState("");
@@ -13,7 +12,7 @@ export default function SignupPage() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
 
-  const { toast } = useToast();
+  const navigate = useNavigate();
   const handleSubmit = () => {
     try {
       axios.post("http://localhost:3000/api/v1/user/signup", {
@@ -22,16 +21,9 @@ export default function SignupPage() {
         lastName,
         password,
       });
-      toast({
-        title: "Sign Up Successful",
-        description: "Lets Go",
-      });
+      navigate("/Dashboard");
     } catch (e) {
       console.log("Server Not Responding");
-      toast({
-        title: "Oop's Something Went Wrong",
-        description: "Sign Up Unsuccessful",
-      });
     }
   };
 

@@ -26,7 +26,7 @@ export default function Dashboard() {
           "http://localhost:3000/api/v1/accounts/balance",
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjI5MDgwMjA4ZWNjZWY3N2M1NDlmMzYiLCJpYXQiOjE3MTQwODM0OTF9.H3zZGwRI0GGIy6hBbXucQRVH49Q4qsAu8DNUpmSj4oA`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -48,7 +48,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="w-screen p-4 text-2xl font-serif font-semibold text-gray-800">
+        <div className="w-screen p-4 text-2xl font-sans font-semibold text-gray-800">
           Your Balance {balance.Balance}
         </div>
         <div className="w-screen bg-gray-300 p-4 text-2xl font-serif font-semibold text-gray-800">

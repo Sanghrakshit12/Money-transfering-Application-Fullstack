@@ -2,11 +2,12 @@ import { useState } from "react";
 import AuthHeading from "../components/AuthHeading";
 import SubHeading from "../components/AuthsubHeading";
 import InputBox from "../components/inputbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
 export default function SignInPage() {
+  const navigate=useNavigate()
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async () => {
@@ -19,6 +20,7 @@ export default function SignInPage() {
         }
       );
       localStorage.setItem("token", response.data.token);
+      navigate('/Dashboard')
     } catch (e) {
       console.log("Server Not Responding");
     }

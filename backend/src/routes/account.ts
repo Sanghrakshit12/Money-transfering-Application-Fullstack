@@ -13,6 +13,7 @@ accountRouter.get('/balance', AuthMiddleware, async (req: AuthenticatedRequest, 
             userId
         })
         res.status(200).json({ Balance: owner?.balance })
+        console.log("Balance fetched Successfully")
     }
     catch (err) {
         res.status(404).json({ message: "Error Getting Balance" })
@@ -61,7 +62,7 @@ accountRouter.post('/transfer', AuthMiddleware, async (req: AuthenticatedRequest
 
         await session.commitTransaction();
         res.status(200).json({ message: "Transfer successful" });
-        console.log("Transfer successful");
+        console.log(`Transfer successful to ${receiver.userId} from ${owner.userId}`);
     } catch (error) {
         console.error("Error in transaction:", error);
         await session.abortTransaction();
