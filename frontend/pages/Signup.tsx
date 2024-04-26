@@ -1,31 +1,16 @@
 import AuthHeading from "../components/AuthHeading";
 import SubHeading from "../components/AuthsubHeading";
-import { Link, useNavigate } from "react-router-dom";
+import AuthNavigator from "../components/AuthNavigator";
 import Navbar from "../components/Navbar";
 import InputBox from "../components/inputbox";
 import { useState } from "react";
-import axios from "axios";
+import SignupButton from "../components/SignupButton";
 
 export default function SignupPage() {
   const [userName, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
-  const handleSubmit = () => {
-    try {
-      axios.post("http://localhost:3000/api/v1/user/signup", {
-        userName,
-        firstName,
-        lastName,
-        password,
-      });
-      navigate("/Dashboard");
-    } catch (e) {
-      console.log("Server Not Responding");
-    }
-  };
 
   return (
     <div className="bg-gray-300 min-h-screen font-roboto">
@@ -66,24 +51,18 @@ export default function SignupPage() {
             placeholder="*******"
           />
           <div className="flex justify-center">
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            >
-              Sign Up
-            </button>
+            <SignupButton
+              userName={userName}
+              firstName={firstName}
+              lastName={lastName}
+              password={password}
+            />
           </div>
-
-          <div className="py-2 text-sm flex justify-center">
-            <div>Already have an account?</div>
-            <Link
-              className="pointer underline pl-1 cursor-pointer"
-              to="/signin"
-            >
-              SignIn
-            </Link>
-          </div>
+          <AuthNavigator
+            to={"/signin"}
+            message={"Already have an account?"}
+            where="SignIn"
+          />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import pg2 from "../public/pg2.png";
+import pg2 from "/pg2.png";
 
 export default function Home() {
   const navigate = useNavigate();

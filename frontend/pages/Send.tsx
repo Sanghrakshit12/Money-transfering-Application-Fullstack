@@ -1,6 +1,6 @@
 import axios from "axios";
 import AuthHeading from "../components/AuthHeading";
-import Navbar from "../components/Navbar";
+import AppNavbar from "../components/AppNavbars";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
@@ -12,12 +12,11 @@ export default function TransferPage() {
   const [amount, setAmount] = useState("");
   async function Tranfer() {
     try {
-
       await axios.post(
         "http://localhost:3000/api/v1/accounts/transfer",
         {
           to: id,
-          amount:parseInt(amount),
+          amount: parseInt(amount),
         },
         {
           headers: {
@@ -32,7 +31,7 @@ export default function TransferPage() {
   }
   return (
     <div className="bg-gray-300 min-h-screen font-serif">
-      <Navbar />
+      <AppNavbar />
       <div className="flex items-center justify-center pt-36">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
           <div className="text-center pb-8">
@@ -48,7 +47,6 @@ export default function TransferPage() {
               onChange={(e) => {
                 setAmount(e.target.value);
               }}
-           
               type="text"
               className="w-full border border-gray-300 bg-white px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
             />
@@ -65,4 +63,3 @@ export default function TransferPage() {
     </div>
   );
 }
-
