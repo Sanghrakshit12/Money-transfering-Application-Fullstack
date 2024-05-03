@@ -42,7 +42,7 @@ export default function AppNavbar() {
           <Link to={"/"}>
             <img
               style={{ width: "50%", height: "50%" }}
-              src="../public/icon.png"
+              src="../icon.png"
               alt="Icon"
             />
           </Link>
@@ -54,7 +54,7 @@ export default function AppNavbar() {
         ) : (
           balance && (
             <div className="text-xl  font-semibold text-white px-4">
-              {/* Balance: {balance.Balance} */}
+              Balance: {balance.Balance}
             </div>
           )
         )}

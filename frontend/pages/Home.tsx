@@ -22,7 +22,7 @@ export default function Home() {
               <Link to={"/"}>
                 <img
                   style={{ width: "70%", height: "70%" }}
-                  src="../public/icon.png"
+                  src="/icon.png"
                   alt="Icon"
                 />
               </Link>

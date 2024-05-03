@@ -11,7 +11,7 @@ export default function Navbar() {
         <Link to={"/"}>
           <img
             style={{ width: "50%", height: "50%" }}
-            src="../public/icon.png"
+            src="/icon.png"
             alt="Icon"
           />
         </Link>

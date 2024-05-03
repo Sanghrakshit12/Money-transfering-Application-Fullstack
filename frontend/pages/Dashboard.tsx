@@ -15,10 +15,12 @@ export default function Dashboard() {
   const [, /*filter*/ setFilter] = useState("");
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk`).then((response) => {
-      setUsers(response.data.user);
-      console.log(import.meta.env.VITE_SERVER_URL)
-    });
+    axios
+      .get(`${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk`)
+      .then((response) => {
+        setUsers(response.data.user);
+        console.log(import.meta.env.VITE_SERVER_URL);
+      });
   }, []);
 
   const navigate = useNavigate();
@@ -34,13 +36,21 @@ export default function Dashboard() {
             onChange={(e) => {
               const newFilter = e.target.value;
               setFilter(newFilter);
-              axios
-                .get(
-                  `${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk?filter=${newFilter}`
-                )
-                .then((response) => {
-                  setUsers(response.data.user);
-                });
+              axios.get(
+                `${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk?filter=${newFilter}`,
+                {
+                  headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              )
+              .then((response) => {
+                setUsers(response.data.user);
+              })
+              .catch((error) => {
+                console.log(error)
+              });
+              
             }}
             type="text"
             placeholder="Search User"
