@@ -12,7 +12,7 @@ export default function AuthButton({ userName, password }: AuthButtonProps) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
+        `${import.meta.env.VITE_SERVER_URL}api/v1/user/signin`,
         {
           userName,
           password,

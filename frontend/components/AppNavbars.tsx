@@ -12,7 +12,7 @@ export default function AppNavbar() {
     const fetchBalance = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/accounts/balance",
+          `${import.meta.env.VITE_SERVER_URL}api/v1/accounts/balance`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

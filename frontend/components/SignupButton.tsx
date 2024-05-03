@@ -18,7 +18,7 @@ export default function AuthButton({
 
   const handleSubmit = () => {
     try {
-      axios.post("http://localhost:3000/api/v1/user/signup", {
+      axios.post(`${import.meta.env.VITE_SERVER_URL}user/signup`, {
         userName,
         firstName,
         lastName,

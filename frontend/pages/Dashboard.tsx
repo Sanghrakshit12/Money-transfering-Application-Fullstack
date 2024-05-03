@@ -15,8 +15,9 @@ export default function Dashboard() {
   const [, /*filter*/ setFilter] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/v1/user/bulk").then((response) => {
+    axios.get(`${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk`).then((response) => {
       setUsers(response.data.user);
+      console.log(import.meta.env.VITE_SERVER_URL)
     });
   }, []);
 
@@ -35,7 +36,7 @@ export default function Dashboard() {
               setFilter(newFilter);
               axios
                 .get(
-                  `http://localhost:3000/api/v1/user/bulk?filter=${newFilter}`
+                  `${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk?filter=${newFilter}`
                 )
                 .then((response) => {
                   setUsers(response.data.user);

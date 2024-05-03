@@ -2,7 +2,10 @@ import express from 'express'
 import { mainRouter } from './routes'
 const app = express()
 import cors from 'cors'
-app.use(cors())
+app.use(cors({
+    credentials:true,
+    origin:"http://localhost:5173"
+}))
 app.use(express.json())
 
 app.use('/api/v1', mainRouter)
