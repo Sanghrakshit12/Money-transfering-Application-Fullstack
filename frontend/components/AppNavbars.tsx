@@ -54,7 +54,7 @@ export default function AppNavbar() {
         ) : (
           balance && (
             <div className="text-xl  font-semibold text-white px-4">
-              Balance: {balance.Balance}
+              {/* Balance: {balance.Balance} */}
             </div>
           )
         )}

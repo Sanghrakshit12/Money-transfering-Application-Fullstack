@@ -108,7 +108,7 @@ exports.userRouter.put('/update', middleware_1.default, (req, res) => __awaiter(
         return;
     }
 }));
-exports.userRouter.get('/bulk', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.userRouter.get('/bulk', middleware_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const filter = ((_a = req.query.filter) === null || _a === void 0 ? void 0 : _a.toString()) || "";
     const users = yield db_1.UserModel.find({

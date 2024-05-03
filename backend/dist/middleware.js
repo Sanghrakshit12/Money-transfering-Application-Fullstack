@@ -16,19 +16,18 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const JWT_Secret = "MoneyTransferX-2024";
 function AuthMiddleware(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!req.headers) {
+        if (!req.headers.authorization) {
             return res.status(401).json({ message: 'No headers found in the request' });
         }
         const Auth_Header = req.headers.authorization;
         console.log(Auth_Header);
-        if (!Auth_Header || !Auth_Header.startsWith("Bearer ")) {
-            res.status(404).json({ message: "User Not Authenticated" });
+        if (!Auth_Header.startsWith("Bearer ")) {
+            res.status(404).json({ message: "User Not Authenticated1" });
             return;
         }
         const token = Auth_Header.split(' ')[1];
         try {
             const decoded = yield jsonwebtoken_1.default.verify(token, JWT_Secret);
-            console.log(decoded);
             if (decoded && decoded.userId) {
                 req.userId = decoded.userId;
             }
@@ -40,7 +39,7 @@ function AuthMiddleware(req, res, next) {
         }
         catch (err) {
             console.log(err);
-            res.status(404).json({ message: "User Not Authenticated" });
+            res.status(404).json({ message: "User Not Authenticated2" });
             return;
         }
     });
