@@ -25,4 +25,4 @@ On the frontend, React is employed as the framework of choice, providing a dynam
 4. Run the server and the frontend application.
 5. Start transferring money securely!
 
-Feel free to contribute, report issues, or suggest improvements to make this application even better!
+Feel free to contribute, report issues, or suggest improvements to make this application even better! check
