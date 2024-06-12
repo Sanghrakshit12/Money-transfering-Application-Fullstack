@@ -13,34 +13,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const JWT_Secret = "MoneyTransferX-2024";
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const JWT_Secret = process.env.JWT_Secret;
+if (!JWT_Secret) {
+    throw new Error("JWT_Secret environment variable is not defined");
+}
 function AuthMiddleware(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!req.headers.authorization) {
-            return res.status(401).json({ message: 'No headers found in the request' });
+            return res.status(401).json({ message: 'Authorization header not found' });
         }
-        const Auth_Header = req.headers.authorization;
-        console.log(Auth_Header);
-        if (!Auth_Header.startsWith("Bearer ")) {
-            res.status(404).json({ message: "User Not Authenticated1" });
-            return;
+        const authHeader = req.headers.authorization;
+        if (!authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({ message: "Invalid authorization format" });
         }
-        const token = Auth_Header.split(' ')[1];
+        const token = authHeader.split(' ')[1];
         try {
             const decoded = yield jsonwebtoken_1.default.verify(token, JWT_Secret);
             if (decoded && decoded.userId) {
                 req.userId = decoded.userId;
+                next();
             }
             else {
-                res.status(404).json({ message: "UserID cannot be Loaded" });
-                return;
+                return res.status(401).json({ message: "Invalid token payload" });
             }
-            next();
         }
         catch (err) {
-            console.log(err);
-            res.status(404).json({ message: "User Not Authenticated2" });
-            return;
+            console.error("Token verification error:", err);
+            return res.status(401).json({ message: "Token verification failed" });
         }
     });
 }

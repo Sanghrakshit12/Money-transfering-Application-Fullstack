@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 
 interface AuthButtonProps {
   userName: string;
@@ -15,22 +16,25 @@ export default function AuthButton({
   password,
 }: AuthButtonProps) {
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      axios.post(`${import.meta.env.VITE_SERVER_URL}user/signup`, {
+       const response=await axios.post("http://localhost:3000/api/v1/user/signup", {
         userName,
         firstName,
         lastName,
         password,
       });
+      localStorage.setItem("token", response.data.token);
       navigate("/Dashboard");
     } catch (e) {
-      console.log("Server Not Responding");
+      setError("Server Not Responding");
     }
   };
+
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center">
       <button
         onClick={handleSubmit}
         type="button"
@@ -38,6 +42,9 @@ export default function AuthButton({
       >
         Signup
       </button>
+      {error && (
+        <p className="text-red-500 mt-2">{error}</p>
+      )}
     </div>
   );
 }

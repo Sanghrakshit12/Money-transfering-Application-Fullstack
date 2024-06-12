@@ -5,7 +5,7 @@ import { accountRouter } from './account'
 export const mainRouter = express.Router()
 
 mainRouter.get('/', (req, res) => {
-    res.json({ msg: "hello From routes2" })
+    res.json({ msg: "hello From MainRouter" })
 })
 
 mainRouter.use('/user', userRouter)

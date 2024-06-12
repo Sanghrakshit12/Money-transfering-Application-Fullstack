@@ -28,8 +28,8 @@ mongoose.connect(Mongo_URL).then(() => {
     console.log("Error Connecting To Database", e)
 })
 
-userRouter.get('/test', (req, res) => {
-    res.json({ msg: "hello From User" })
+userRouter.get('/', (req, res) => {
+    res.json({ msg: "hello From UserRouter" })
 })
 
 userRouter.post('/signup', async (req, res) => {

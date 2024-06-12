@@ -16,10 +16,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk`)
+      .get("http://localhost:3000/api/v1/user/bulk")
       .then((response) => {
         setUsers(response.data.user);
-        console.log(import.meta.env.VITE_SERVER_URL);
       });
   }, []);
 

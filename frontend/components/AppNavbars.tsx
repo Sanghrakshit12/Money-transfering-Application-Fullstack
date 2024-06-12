@@ -12,7 +12,7 @@ export default function AppNavbar() {
     const fetchBalance = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}api/v1/accounts/balance`,
+          "http://localhost:3000/api/v1/accounts/balance",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,15 +36,6 @@ export default function AppNavbar() {
         <div className="text-xl font-bold text-white">
           <Link to={"/"} className="font-serif font-semibold">
             MoneyTransferX{" "}
-          </Link>
-        </div>
-        <div className="pl-2">
-          <Link to={"/"}>
-            <img
-              style={{ width: "50%", height: "50%" }}
-              src="../icon.png"
-              alt="Icon"
-            />
           </Link>
         </div>
       </div>

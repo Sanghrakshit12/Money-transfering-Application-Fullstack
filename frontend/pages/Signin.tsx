@@ -40,11 +40,11 @@ export default function SignInPage() {
             />
           </div>
           <AuthButton userName={userName} password={password} />
-          <AuthNavigator
+          {/* <AuthNavigator
             to="/signup"
             message="Don't have an account?"
             where="SignUp"
-          />
+          /> */}
         </div>
       </div>
     </div>

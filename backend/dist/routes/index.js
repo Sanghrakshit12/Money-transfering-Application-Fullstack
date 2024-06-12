@@ -9,7 +9,7 @@ const user_1 = require("./user");
 const account_1 = require("./account");
 exports.mainRouter = express_1.default.Router();
 exports.mainRouter.get('/', (req, res) => {
-    res.json({ msg: "hello From routes2" });
+    res.json({ msg: "hello From MainRouter" });
 });
 exports.mainRouter.use('/user', user_1.userRouter);
 exports.mainRouter.use('/accounts', account_1.accountRouter);

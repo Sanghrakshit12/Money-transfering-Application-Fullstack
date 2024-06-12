@@ -36,8 +36,8 @@ mongoose_1.default.connect(Mongo_URL).then(() => {
 }).catch((e) => {
     console.log("Error Connecting To Database", e);
 });
-exports.userRouter.get('/test', (req, res) => {
-    res.json({ msg: "hello From User" });
+exports.userRouter.get('/', (req, res) => {
+    res.json({ msg: "hello From UserRouter" });
 });
 exports.userRouter.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 
 interface AuthButtonProps {
   userName: string;
@@ -8,11 +9,12 @@ interface AuthButtonProps {
 
 export default function AuthButton({ userName, password }: AuthButtonProps) {
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}api/v1/user/signin`,
+        "http://localhost:3000/api/v1/user/signin",
         {
           userName,
           password,
@@ -21,11 +23,12 @@ export default function AuthButton({ userName, password }: AuthButtonProps) {
       localStorage.setItem("token", response.data.token);
       navigate("/Dashboard");
     } catch (e) {
-      console.log("Server Not Responding");
+      setError("Server Not Responding");
     }
   };
+
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center">
       <button
         onClick={handleSubmit}
         type="button"
@@ -33,6 +36,9 @@ export default function AuthButton({ userName, password }: AuthButtonProps) {
       >
         SignIn
       </button>
+      {error && (
+        <p className="text-red-500 mt-2">{error}</p>
+      )}
     </div>
   );
 }

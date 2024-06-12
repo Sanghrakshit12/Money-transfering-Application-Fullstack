@@ -11,7 +11,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/api/v1', routes_1.mainRouter);
 app.get('/', (req, res) => {
-    res.json({ msg: "hello From Main" });
+    res.json({ msg: "hello From MoneyTransferX backend" });
 });
 app.listen(3000, () => {
     console.log("Server Running on Port 3000");

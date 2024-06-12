@@ -13,7 +13,7 @@ export default function TransferPage() {
   async function Tranfer() {
     try {
       await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}api/v1/accounts/transfer`,
+        `http://localhost:3000/api/v1/accounts/transfer`,
         {
           to: id,
           amount: parseInt(amount),
