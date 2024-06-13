@@ -1,83 +1,14 @@
 import HomeNavbar from '../components/HomeNavbar'
 import { Link } from "react-router-dom";
+import HomeFront from './HomeFront'
+import Homemid from './HomeMid'
 export default function Main() {
     return (
         <>
             <HomeNavbar />
             <div className='bg-black'>
-            <div className="flex flex-col items-center md:mt-20 mt md:flex-row">
-                <section className="flex-1 md:ml-20 lg:ml-52">
-                    <div className="text-center font-bold md:text-left">
-                        <h2 className="mb-3 font-serif text-3xl text-white md:text-7xl">
-                            MoneyTransferX
-                        </h2>
-                        <h1 className="mb-1 font-serif text-5xl text-white md:text-4xl">
-                            Effortlessly Transfer Money with Security and Ease
-                        </h1>
-
-                        <div className="mt-8 flex flex-col items-center md:flex-row md:items-start">
-                            <input
-                                placeholder="Email"
-                                className="mb-2 w-full rounded p-2 md:mb-0 md:mr-2 md:w-64"
-                            />
-                            <Link
-                                to="/signup"
-                                className="inline-block bg-green-500 hover:bg-green-800 text-white font-semibold px-5 py-2 rounded shadow"
-                            >
-                                Sign Up
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-                <div className="flex justify-center md:w-1/3 md:justify-end">
-                    <div className="m-10 inline-block rounded mr-14 size-4/5">
-                        <img src="/img3.png" alt="image" width={2020} height={2040} />
-
-                    </div>
-                </div>
-            </div>
-            <div className="flex min-h-screen items-center justify-center">
-                <div className="grid grid-cols-2 gap-8">
-                    <div className="max-w-sm overflow-hidden rounded bg-gray-900 shadow-lg">
-                        <div className="px-10 py-6">
-                            <div className="mb-4 text-center text-xl font-bold text-white">
-                                Transfer Money
-                            </div>
-                            <p className="pb-5 text-center text-base text-white">
-                                Seamlessly Send Money to other Users
-                            </p>
-                            <img src="/wallet.png" alt="image" width={620} height={640} />
-                        </div>
-                        <div className="px-6 pb-4 pt-2">
-                            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                                #UPI
-                            </span>
-                            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                                #Moneytransferx
-                            </span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm overflow-hidden rounded bg-gray-900 shadow-lg">
-                        <div className="px-10 py-6">
-                            <div className=" pb-5 text-center text-xl font-bold text-white">
-                                Secure Payments
-                            </div>
-                            <p className="text-center text-base text-white">
-                                Secure MoneyTransfer to Authenticated Users
-                            </p>
-                            <img className='pt-5' src="/sol.png" alt="image" width={620} height={640} />
-                        </div>
-                        <div className="px-6 pb-4 pt-2">
-                            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                                #Authentication
-                            </span>
-                            <span className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700">
-                                #Security
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <HomeFront />
+           <Homemid />
             <footer className="bg-gray-900 text-white py-8 pb-4">
                 <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-">
                     <div>

@@ -28,12 +28,12 @@ export default function Dashboard() {
 
   const navigate = useNavigate();
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className="bg-gray-950 min-h-screen">
       <AppNavbar />
-      <div className="bg-gray-600 p-4 pl-10 text-2xl font-serif font-semibold text-white">
+      <div className="bg-white p-4 pl-10 text-2xl font-serif font-semibold text-white">
         Application Users
       </div>
-      <div className="p-4 text-lg font-medium text-gray-800">
+      <div className="p-4 text-lg font-medium text-white">
         <div className="w-full">
           <input
             onChange={(e) => {

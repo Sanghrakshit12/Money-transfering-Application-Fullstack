@@ -31,7 +31,7 @@ export default function AppNavbar() {
   }, []);
 
   return (
-    <div className="flex items-center justify-between bg-black p-2 pl-10 pr-4">
+    <div className="flex items-center justify-between bg-gray-900 p-5 pl-10 pr-4">
       <div className="flex items-center">
         <div className="text-xl font-bold text-white">
           <Link to={"/"} className="font-serif font-semibold">
