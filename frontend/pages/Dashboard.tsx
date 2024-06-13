@@ -16,7 +16,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/user/bulk")
+      .get("http://localhost:3000/api/v1/user/bulk", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         setUsers(response.data.user);
       });
@@ -36,7 +40,7 @@ export default function Dashboard() {
               const newFilter = e.target.value;
               setFilter(newFilter);
               axios.get(
-                `${import.meta.env.VITE_SERVER_URL}api/v1/user/bulk?filter=${newFilter}`,
+                `http://localhost:3000/api/v1/user/bulk?filter=${newFilter}`,
                 {
                   headers: {
                     authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -11,9 +11,9 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="bg-gray-300 min-h-screen font-roboto">
+    <div className="bg-black min-h-screen font-roboto">
       <Navbar />
-      <div className="flex items-center justify-center pt-36">
+      <div className="flex items-center justify-center pt-36 ">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
           <div className="text-center">
             <AuthHeading label="Sign In" />
@@ -40,11 +40,11 @@ export default function SignInPage() {
             />
           </div>
           <AuthButton userName={userName} password={password} />
-          {/* <AuthNavigator
+          <AuthNavigator
             to="/signup"
             message="Don't have an account?"
             where="SignUp"
-          /> */}
+          />
         </div>
       </div>
     </div>

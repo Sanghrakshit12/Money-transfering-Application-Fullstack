@@ -8,9 +8,9 @@ interface Props {
 
 export default function AuthNavigator({ to, message, where }: Props) {
   return (
-    <div className="py-2 text-sm font-semibold flex justify-center">
+    <div className="py-4 text-sm font-semibold flex justify-center">
       <div>{message}</div>
-      <Link className="pointer underline pl-1 cursor-pointer" to={to}>
+      <Link className="pointer pl-1 cursor-pointer" to={to}>
         {where}
       </Link>
     </div>

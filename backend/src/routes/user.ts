@@ -116,7 +116,7 @@ interface QueryedUser {
     _id: mongoose.Types.ObjectId;
 }
 
-userRouter.get('/bulk', AuthMiddleware, async (req, res) => {
+userRouter.get('/bulk',AuthMiddleware, async (req, res) => {
     const filter: string = req.query.filter?.toString() || "";
     const users = await UserModel.find({
         $or: [

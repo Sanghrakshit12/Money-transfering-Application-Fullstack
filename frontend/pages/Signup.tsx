@@ -13,7 +13,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="bg-gray-300 min-h-screen font-roboto">
+    <div className="bg-black min-h-screen font-roboto">
       <Navbar />
       <div className="flex items-center justify-center pt-16">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
