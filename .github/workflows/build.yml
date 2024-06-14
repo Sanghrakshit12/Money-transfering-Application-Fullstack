@@ -1,0 +1,31 @@
+name: Build on PR
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install Dependencies in Frontend
+        working-directory: ./frontend
+        run: npm install
+        
+      - name: Run Build in Frontend
+        working-directory: ./frontend
+        run: npm run build
+        
+      - name: Install Dependencies in Backend
+        working-directory: ./backend
+        run: npm install
+        
+      - name: Run Build in Backend
+        working-directory: ./backend
+        run: npm run build
