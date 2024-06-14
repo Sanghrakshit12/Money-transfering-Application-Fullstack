@@ -5,3 +5,4 @@ docker run -p 3000:3000 \
   --name mtx_backend \
   --network mtx_ntw \
   moneytransferxbackend:v1
+ docker run -p 4000:4000 --network mtx_ntw  moneytransferxfrontend:vdoc
