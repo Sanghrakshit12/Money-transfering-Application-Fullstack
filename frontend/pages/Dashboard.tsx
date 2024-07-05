@@ -30,7 +30,7 @@ export default function Dashboard() {
   return (
     <div className="bg-gray-950 min-h-screen">
       <AppNavbar />
-      <div className="bg-white p-4 pl-10 text-2xl font-serif font-semibold text-white">
+      <div className="bg-blue-700 p-4 pl-10 text-2xl font-serif font-semibold text-white">
         Application Users
       </div>
       <div className="p-4 text-lg font-medium text-white">
@@ -39,34 +39,30 @@ export default function Dashboard() {
             onChange={(e) => {
               const newFilter = e.target.value;
               setFilter(newFilter);
-              axios.get(
-                `http://localhost:3000/api/v1/user/bulk?filter=${newFilter}`,
-                {
+              axios
+                .get(`http://localhost:3000/api/v1/user/bulk?filter=${newFilter}`, {
                   headers: {
                     authorization: `Bearer ${localStorage.getItem("token")}`,
                   },
-                }
-              )
-              .then((response) => {
-                setUsers(response.data.user);
-              })
-              .catch((error) => {
-                console.log(error)
-              });
-              
+                })
+                .then((response) => {
+                  setUsers(response.data.user);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
             }}
             type="text"
             placeholder="Search User"
-            className="w-full border border-gray-300 bg-white px-4 py-2 rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full border border-gray-600 bg-white px-4 py-2 rounded-md focus:outline-none focus:border-blue-500 text-black" // Adjust text color to black or a contrasting color
           />
         </div>
         <div className="pt-4">
           {users.map((user: User, index: number) => (
             <div
               key={user._id}
-              className={`flex justify-between items-center bg-gray-300 border-b border-gray-300 p-4 ${
-                index < users.length - 1 ? "border-white" : ""
-              }`}
+              className={`flex justify-between items-center bg-blue-700 border-b border-gray-600 p-4 ${index < users.length - 1 ? "border-white" : ""
+                }`}
             >
               <div>{user.firstName}</div>
 
